@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useState } from "react";
 // import './App.css'
-import PrimarySearchAppBar from './components/Header'
-import { goods } from './goods';
+import PrimarySearchAppBar from "./components/Header";
+import ItemsList from './components/ItemsList';
+import items from "./items";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
 
-  return (
-    <>
-    <PrimarySearchAppBar/>
-    </>
-  )
+    return (
+        <>
+            <PrimarySearchAppBar />
+            <ItemsList items={ items }></ItemsList>
+        </>
+    );
 }
 
-export default App
+export default App;
