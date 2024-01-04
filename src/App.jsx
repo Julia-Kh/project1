@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 // import './App.css'
 import PrimarySearchAppBar from './components/Header';
 import ItemsList from './components/ItemsList';
-import items from './items';
 import the_biggest_collections from './the_biggest_collections';
 import CollectionsList from './components/CollectionsList';
 import Example from './components/Wordcloud';
@@ -12,6 +11,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 function App() {
   const [session, setSession] = useState(null);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -23,6 +23,32 @@ function App() {
       setSession(session);
       console.log('on auth change');
     });
+  }, []);
+
+  useEffect(() => {
+    supabase
+      .from('Items')
+      .select(
+        `
+    id, author_id, title, Collections (title), img_url
+`
+      )
+      .then((res) => {
+        let { data, error } = res;
+        console.log(data, error);
+        const arrOfItems = [];
+        let techObj = {};
+        for (let obj of data) {
+          techObj.owner = obj.author_id;
+          techObj.name = obj.title;
+          techObj.collection = obj.Collections.title;
+          techObj.poster = obj.img_url;
+          techObj.id = obj.id;
+          arrOfItems.push(techObj);
+          techObj = {};
+        }
+        setItems(arrOfItems);
+      });
   }, []);
 
   return (
