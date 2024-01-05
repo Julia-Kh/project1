@@ -28,26 +28,17 @@ function App() {
   useEffect(() => {
     supabase
       .from('Items')
-      .select(
-        `
-    id, author_id, title, Collections (title), img_url
-`
-      )
+      .select('id, name:title, Collections (title), created_at, owner:author_id, poster:img_url')
+      .order('created_at', { ascending: false })
+      .limit(5)
       .then((res) => {
         let { data, error } = res;
         console.log(data, error);
-        const arrOfItems = [];
-        let techObj = {};
-        for (let obj of data) {
-          techObj.owner = obj.author_id;
-          techObj.name = obj.title;
-          techObj.collection = obj.Collections.title;
-          techObj.poster = obj.img_url;
-          techObj.id = obj.id;
-          arrOfItems.push(techObj);
-          techObj = {};
-        }
-        setItems(arrOfItems);
+        const data2 = data.map((value) => ({
+          ...value,
+          collection: value.Collections.title,
+        }));
+        setItems(data2);
       });
   }, []);
 
