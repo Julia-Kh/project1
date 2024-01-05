@@ -28,7 +28,9 @@ function App() {
   useEffect(() => {
     supabase
       .from('Items')
-      .select('id, name:title, Collections (title), created_at, owner:author_id, poster:img_url')
+      .select(
+        'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url'
+      )
       .order('created_at', { ascending: false })
       .limit(5)
       .then((res) => {
