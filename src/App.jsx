@@ -15,11 +15,13 @@ function App() {
   const [collections, setCollections] = useState([]);
 
   useEffect(() => {
+    // попробовать получить текущую сессию
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       console.log('get session');
     });
 
+    // добавить подписку на изменение состояния сессии
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       console.log('on auth change');
@@ -33,7 +35,7 @@ function App() {
       .select(
         'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url'
       )
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }) // сортировка
       .limit(5)
       .then((res) => {
         let { data, error } = res;
@@ -82,6 +84,8 @@ function App() {
           </>
         )}
       </div>
+
+      
       <PrimarySearchAppBar />
       <ItemsList items={items}></ItemsList>
       <CollectionsList collections={collections}></CollectionsList>
