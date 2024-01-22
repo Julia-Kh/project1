@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainLayout from './components/MainLayout';
-import Home from './components/Home';
-import Login from './components/Login';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import Collection from './components/Collection';
 import Item from './components/Item';
+import CollectionsPage from './pages/CollectionsPage';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="collections" element={<CollectionsPage />} />
             <Route path="collections/:title" element={<Collection />} />
             <Route path="items/:id" element={<Item />} />
           </Route>
