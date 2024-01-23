@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';
+import { useState, useEffect, useContext } from 'react';
 import ItemsList from './ItemsList';
+import AuthContext from '../context/AuthContext';
 
 const LastItems = () => {
+  const { supabase } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   useEffect(() => {
     // get last 5 items

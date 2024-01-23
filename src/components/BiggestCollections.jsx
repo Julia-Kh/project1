@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';
+import { useState, useEffect, useContext } from 'react';
 import CollectionsList from './CollectionsList';
+import AuthContext from '../context/AuthContext';
 
 const BiggestCollections = () => {
+  const { supabase } = useContext(AuthContext);
   const [collections, setCollections] = useState([]);
   useEffect(() => {
     // get 5 biggest collections
