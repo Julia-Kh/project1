@@ -1,13 +1,11 @@
 import Grid from '@mui/material/Grid';
 import Item from './Item';
 
-const ItemsList = (props) => {
-    const { items, setOrder } = props;
-    // setOrder - ?
+const ItemsList = ({ items }) => {
     return (
         <Grid container spacing={2}>
             {items.map((item) => (
-                <Item key={item.id} setOrder={setOrder} {...item} />
+                <Item key={item.id} {...item} />
             ))}
         </Grid>
     )
