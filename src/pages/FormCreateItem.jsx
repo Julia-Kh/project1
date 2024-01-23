@@ -53,7 +53,6 @@ const MyForm = () => {
         .insert([
           {
             title: formData.title,
-            description: formData.description,
             img_url: formData.imgUrl,
             // topic_id: formData.selectedValue,
             author_id: session.user.id,
@@ -80,15 +79,6 @@ const MyForm = () => {
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            fullWidth
-            multiline
-            maxRows={4}
-          />
           <TextField
             label="Image url"
             name="imgUrl"
