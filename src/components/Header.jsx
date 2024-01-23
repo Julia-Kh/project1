@@ -112,7 +112,14 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
       >
         Create collection
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>Create item</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          navigate('/create-item');
+        }}
+      >
+        Create item
+      </MenuItem>
     </Menu>
   );
 
@@ -157,6 +164,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            onClick={() => navigate('/')}
           >
             Title
           </Typography>

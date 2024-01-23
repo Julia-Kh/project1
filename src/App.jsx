@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { supabase } from './supabaseClient';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
@@ -9,8 +10,9 @@ import Collection from './components/Collection.jsx';
 import Item from './components/Item.jsx';
 import CollectionsPage from './pages/CollectionsPage.jsx';
 import FormCreateCollection from './pages/FormCreateCollection.jsx';
+import FormCreateItem from './pages/FormCreateItem.jsx';
 import AuthContext from './context/AuthContext.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
+
 import './App.css';
 
 function App() {
@@ -61,6 +63,14 @@ function App() {
                   element={
                     <ProtectedRoute session={session}>
                       <FormCreateCollection />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="create-item"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <FormCreateItem />
                     </ProtectedRoute>
                   }
                 />
