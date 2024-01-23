@@ -6,14 +6,14 @@ const LastItems = () => {
   const { supabase } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    // get last 5 items
+    // get last 8 items
     supabase
       .from('Items')
       .select(
         'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url'
       )
       .order('created_at', { ascending: false }) // сортировка
-      .limit(5)
+      .limit(8)
       .then((res) => {
         let { data, error } = res;
         console.log(data, error);

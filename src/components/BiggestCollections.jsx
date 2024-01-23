@@ -6,7 +6,7 @@ const BiggestCollections = () => {
   const { supabase } = useContext(AuthContext);
   const [collections, setCollections] = useState([]);
   useEffect(() => {
-    // get 5 biggest collections
+    // get 8 biggest collections
     supabase
       .from('Collections')
       .select(`id, name:title, owner:author_id, poster:img_url, Items(count)`)
@@ -17,7 +17,7 @@ const BiggestCollections = () => {
           return value;
         });
         arrOfData.sort((a, b) => b.countOfItems - a.countOfItems);
-        arrOfData = arrOfData.slice(0, 5);
+        arrOfData = arrOfData.slice(0, 8);
 
         // set collections
         setCollections(arrOfData);
