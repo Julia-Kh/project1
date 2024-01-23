@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Collection from './components/Collection';
 import Item from './components/Item';
 import CollectionsPage from './pages/CollectionsPage';
+import FormCreateCollection from './pages/FormCreateCollection'
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="collections" element={<CollectionsPage />} />
             <Route path="collections/:title" element={<Collection />} />
             <Route path="items/:id" element={<Item />} />
+            <Route path="create-collection" element={<FormCreateCollection />} />
           </Route>
         </Routes>
       </div>

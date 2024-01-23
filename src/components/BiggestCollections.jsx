@@ -24,7 +24,7 @@ const BiggestCollections = () => {
   }, []);
   return (
     <>
-      <div>BiggestCollections</div>
+      <div>Biggest Collections</div>
       <CollectionsList collections={collections}></CollectionsList>
     </>
   );

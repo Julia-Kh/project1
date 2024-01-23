@@ -25,7 +25,7 @@ const LastItems = () => {
   }, []);
   return (
     <>
-      <div>LastItems</div>
+      <div>Last Items</div>
       <ItemsList items={items}></ItemsList>
     </>
   );
