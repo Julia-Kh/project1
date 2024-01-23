@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   TextField,
   Button,
@@ -8,9 +8,10 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
-import { supabase } from '../supabaseClient';
+import AuthContext from '../context/AuthContext';
 
 const MyForm = () => {
+  const { supabase } = useContext(AuthContext);
   const [topics, setTopics] = useState([]);
   useEffect(() => {
     const fetchTopics = async () => {
