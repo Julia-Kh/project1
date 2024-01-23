@@ -1,25 +1,10 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';
+import { useContext } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import AuthContext from '../context/AuthContext';
 
 const Login = () => {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    // попробовать получить текущую сессию
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      console.log('get session');
-    });
-
-    // добавить подписку на изменение состояния сессии
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      console.log('on auth change');
-    });
-  }, []);
-
+  const { supabase, session } = useContext(AuthContext);
   return (
     <div className="container" style={{ padding: '50px 0 100px 0' }}>
       {!session ? (

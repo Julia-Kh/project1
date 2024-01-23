@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import MainLayout from './layouts/MainLayout.jsx';
@@ -11,8 +12,24 @@ import AuthContext from './context/AuthContext.jsx';
 import './App.css';
 
 function App() {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    // попробовать получить текущую сессию
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      console.log('get session');
+    });
+
+    // добавить подписку на изменение состояния сессии
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      console.log('on auth change');
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ supabase, session: null }}>
+    <AuthContext.Provider value={{ supabase, session }}>
       // взять часть адресной строки из переменной окружения
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <div className="App">
