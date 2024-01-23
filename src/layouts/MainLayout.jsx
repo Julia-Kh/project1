@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 
-const MainLayout = () => (
+const MainLayout = ({ setCurrentTheme }) => (
   <>
-    <Header />
+    <Header  setCurrentTheme={setCurrentTheme} />
     <Outlet />
   </>
 );
