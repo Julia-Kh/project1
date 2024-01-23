@@ -10,7 +10,8 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    // взять часть адресной строки из переменной окружения
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="App">
         <Routes>
           <Route path="/" element={<MainLayout />}>

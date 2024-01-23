@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
-import CollectionsList from './components/CollectionsList';
+import { supabase } from '../supabaseClient';
+import CollectionsList from './CollectionsList';
 
 const BiggestCollections = () => {
   const [collections, setCollections] = useState([]);

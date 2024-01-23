@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
-import ItemsList from './components/ItemsList';
+import { supabase } from '../supabaseClient';
+import ItemsList from './ItemsList';
 
 const LastItems = () => {
   const [items, setItems] = useState([]);
