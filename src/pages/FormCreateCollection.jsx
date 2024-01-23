@@ -12,7 +12,7 @@ import {
 import AuthContext from '../context/AuthContext';
 
 const MyForm = () => {
-  const { supabase } = useContext(AuthContext);
+  const { supabase, session } = useContext(AuthContext);
   const [topics, setTopics] = useState([]);
   useEffect(() => {
     const fetchTopics = async () => {
@@ -46,7 +46,16 @@ const MyForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
+    console.log(session);
     // Действия с отправленными данными
+    const sendData = async () => {
+      const { data, error } = await supabase
+        .from('Collections')
+        .insert([{ some_column: 'someValue', other_column: 'otherValue' }])
+        .select();
+    };
+    // sendData();
   };
 
   return (

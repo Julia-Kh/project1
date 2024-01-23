@@ -10,6 +10,7 @@ import Item from './components/Item.jsx';
 import CollectionsPage from './pages/CollectionsPage.jsx';
 import FormCreateCollection from './pages/FormCreateCollection.jsx';
 import AuthContext from './context/AuthContext.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import './App.css';
 
 function App() {
@@ -46,7 +47,10 @@ function App() {
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <div className="App">
             <Routes>
-              <Route path="/" element={<MainLayout setCurrentTheme={setCurrentTheme} />}>
+              <Route
+                path="/"
+                element={<MainLayout setCurrentTheme={setCurrentTheme} />}
+              >
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="collections" element={<CollectionsPage />} />
@@ -54,7 +58,11 @@ function App() {
                 <Route path="items/:id" element={<Item />} />
                 <Route
                   path="create-collection"
-                  element={<FormCreateCollection />}
+                  element={
+                    <ProtectedRoute session={session}>
+                      <FormCreateCollection />
+                    </ProtectedRoute>
+                  }
                 />
               </Route>
             </Routes>
