@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Box,
 } from '@mui/material';
 import AuthContext from '../context/AuthContext';
 
