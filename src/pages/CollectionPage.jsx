@@ -2,11 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import ItemsList from '../components/ItemsList';
 import AuthContext from '../context/AuthContext';
+import TypographyHeader from '../components/TypographyHeader';
 
 const CollectionPage = () => {
   const { supabase } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const { id } = useParams();
+  const [collectionInfo, setCollectionInfo] = useState({});
 
   useEffect(() => {
     // get items
@@ -28,10 +30,24 @@ const CollectionPage = () => {
         setItems(data2);
       });
   }, []);
-  
+
+  useEffect(() => {
+    supabase
+      .from('Collections')
+      .select(
+        'id, title'
+      )
+      .eq('id', id)
+      .single()
+      .then((res) => {
+        let { data, error } = res;
+        setCollectionInfo( data );
+      });
+  }, []);
+
   return (
     <>
-      <div>Last Items</div>
+      <TypographyHeader>{collectionInfo.title}</TypographyHeader>
       <ItemsList items={items}></ItemsList>
     </>
   );
