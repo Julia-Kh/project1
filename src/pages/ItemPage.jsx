@@ -11,18 +11,16 @@ import AuthContext from '../context/AuthContext';
 
 const ItemPage = () => {
   const navigate = useNavigate();
-  const { supabase } = useContext(AuthContext);
+  const { supabase, session } = useContext(AuthContext);
   const { id } = useParams();
   const [result, setResult] = useState({});
   const { data: currentData, error: currentError } = result;
-  console.log('currentData is: ', currentData);
 
   useEffect(() => {
-    // get item
     supabase
       .from('Items')
       .select(
-        'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url'
+        'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url, description'
       )
       .eq('id', id)
       .single()
@@ -32,7 +30,6 @@ const ItemPage = () => {
         setResult({ data, error });
       });
   }, []);
-  // console.log('result is: ', result);
   if (currentError) {
     navigate('/error');
   }
@@ -59,14 +56,17 @@ const ItemPage = () => {
           <Typography gutterBottom variant="subtitle2" component="div">
             Created at: {currentData.created_at}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
+          {currentData.description && (
+            <Typography variant="body2" color="text.secondary">
+              {currentData.description}
+            </Typography>
+          )}
         </CardContent>
         <CardActions>
           <Button size="small">Edit</Button>
-          <Button size="small" color="error">Delete</Button>
+          <Button size="small" color="error">
+            Delete
+          </Button>
         </CardActions>
       </Box>
     </Card>
