@@ -59,13 +59,15 @@ function App() {
                 element={<MainLayout setCurrentTheme={setCurrentTheme} />}
               >
                 <Route index element={<Home />} />
-                <Route path="login" element={<Login currentTheme={currentTheme} />} />
+                <Route
+                  path="login"
+                  element={<Login currentTheme={currentTheme} />}
+                />
                 <Route path="error" element={<ErrorPage />} />
                 <Route path="collections" element={<CollectionsPage />} />
                 <Route path="items" element={<ItemsPage />} />
                 <Route path="collections/:id" element={<CollectionPage />} />
                 <Route path="items/:id" element={<ItemPage />} />
-                <Route path="my-collections" element={<MyCollections />} />
                 <Route
                   path="create-collection"
                   element={
@@ -79,6 +81,14 @@ function App() {
                   element={
                     <ProtectedRoute session={session}>
                       <FormCreateItem />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="my-collections"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <MyCollections />
                     </ProtectedRoute>
                   }
                 />
