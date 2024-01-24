@@ -166,7 +166,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
             sx={{ display: { xs: 'none', sm: 'block' } }}
             onClick={() => navigate('/')}
           >
-            Title
+            My Collection
           </Typography>
           <Search>
             <SearchIconWrapper>
