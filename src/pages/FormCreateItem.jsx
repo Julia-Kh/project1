@@ -13,13 +13,16 @@ import AuthContext from '../context/AuthContext';
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
-  const [topics, setTopics] = useState([]);
+  const [collections, setCollections] = useState([]);
   useEffect(() => {
-    const fetchTopics = async () => {
-      let { data: Topics, error } = await supabase.from('Topics').select('*');
-      setTopics(Topics);
+    const fetchCollections = async () => {
+      let { data: Collections, error } = await supabase
+        .from('Collections')
+        .select('*')
+        .eq('author_id', session.user.id);
+      setCollections(Collections);
     };
-    fetchTopics();
+    fetchCollections();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -54,9 +57,9 @@ const MyForm = () => {
           {
             title: formData.title,
             img_url: formData.imgUrl,
-            // topic_id: formData.selectedValue,
+            collection_id: formData.selectedValue,
             author_id: session.user.id,
-            // collection_id, tag_id нужно
+            // tag_id можно добавить
           },
         ])
         .select();
@@ -87,21 +90,21 @@ const MyForm = () => {
             fullWidth
           />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <FormControl fullWidth>
             <InputLabel>Выберите значение</InputLabel>
             <Select
               value={formData.selectedValue}
               onChange={handleSelectChange}
             >
-              {topics.map((topic) => (
-                <MenuItem value={topic.id} key={topic.id}>
-                  {topic.title}
+              {collections.map((collection) => (
+                <MenuItem value={collection.id} key={collection.id}>
+                  {collection.title}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
             Отправить
