@@ -7,11 +7,10 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import '../styles.css'
+import TypographyHeader from '../components/TypographyHeader';
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
@@ -76,7 +75,7 @@ const MyForm = () => {
 
   return (
     <>
-      <Typography className='my_header' variant="h3">Create item</Typography>
+      <TypographyHeader>Create item</TypographyHeader>
       <form onSubmit={handleSubmit}>
         <Grid
           container

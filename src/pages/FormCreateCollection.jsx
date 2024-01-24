@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import '../styles.css'
+import TypographyHeader from '../components/TypographyHeader';
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
@@ -73,7 +73,7 @@ const MyForm = () => {
 
   return (
     <>
-      <Typography className='my_header' variant="h3">Create collection</Typography>
+      <TypographyHeader>Create collection</TypographyHeader>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
