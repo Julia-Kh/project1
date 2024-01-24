@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import CollectionsPage from './pages/CollectionsPage.jsx';
+import ItemsPage from './pages/ItemsPage.jsx';
 import CollectionPage from './pages/CollectionPage.jsx';
 import ItemPage from './pages/ItemPage.jsx';
 import FormCreateCollection from './pages/FormCreateCollection.jsx';
@@ -58,6 +59,7 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="error" element={<ErrorPage />} />
                 <Route path="collections" element={<CollectionsPage />} />
+                <Route path="items" element={<ItemsPage />} />
                 <Route path="collections/:id" element={<CollectionPage />} />
                 <Route path="items/:id" element={<ItemPage />} />
                 <Route
