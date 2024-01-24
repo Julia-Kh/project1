@@ -1,5 +1,7 @@
+import TypographyHeader from '../components/TypographyHeader';
+
 const MyCollections = () => {
-  return <div>MyCollections</div>;
+  return <TypographyHeader>MyCollections</TypographyHeader>;
 };
 
 export default MyCollections;

@@ -104,7 +104,14 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>My collections</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          navigate('/my-collections');
+        }}
+      >
+        My collections
+      </MenuItem>
       <MenuItem
         onClick={() => {
           handleMenuClose();

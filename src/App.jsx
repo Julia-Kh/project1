@@ -15,6 +15,7 @@ import ItemPage from './pages/ItemPage.jsx';
 import FormCreateCollection from './pages/FormCreateCollection.jsx';
 import FormCreateItem from './pages/FormCreateItem.jsx';
 import AuthContext from './context/AuthContext.jsx';
+import MyCollections from './pages/MyCollections.jsx';
 
 // import './App.css';
 
@@ -64,6 +65,7 @@ function App() {
                 <Route path="items" element={<ItemsPage />} />
                 <Route path="collections/:id" element={<CollectionPage />} />
                 <Route path="items/:id" element={<ItemPage />} />
+                <Route path="my-collections" element={<MyCollections />} />
                 <Route
                   path="create-collection"
                   element={
