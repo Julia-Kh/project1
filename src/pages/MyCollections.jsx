@@ -1,7 +1,11 @@
 import TypographyHeader from '../components/TypographyHeader';
 
 const MyCollections = () => {
-  return <TypographyHeader>MyCollections</TypographyHeader>;
+  return (
+    <>
+      <TypographyHeader>My Collections</TypographyHeader>
+    </>
+  );
 };
 
 export default MyCollections;
