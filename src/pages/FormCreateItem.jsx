@@ -60,6 +60,7 @@ const MyForm = () => {
           img_url: formData.imgUrl,
           collection_id: formData.selectedValue,
           author_id: session.user.id,
+          description: formData.description,
           // tag_id можно добавить
         },
       ])
@@ -100,6 +101,17 @@ const MyForm = () => {
               value={formData.imgUrl}
               onChange={handleInputChange}
               fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              fullWidth
+              multiline
+              maxRows={4}
             />
           </Grid>
           <Grid item xs={12}>
