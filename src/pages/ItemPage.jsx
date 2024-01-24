@@ -15,12 +15,19 @@ const ItemPage = () => {
   const { id } = useParams();
   const [result, setResult] = useState({});
   const { data: currentData, error: currentError } = result;
+  const defaultImgUrl =
+    'https://images.unsplash.com/photo-1553949345-eb786bb3f7ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
+  const handleDeleteItem = async () => {
+    const { error } = await supabase.from('Items').delete().eq('id', id);
+    navigate(`/collections/${currentData.Collections.id}`)
+  };
 
   useEffect(() => {
     supabase
       .from('Items')
       .select(
-        'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url, description'
+        'id, name:title, Collections (title, id), created_at, owner:author_id, poster:img_url, description'
       )
       .eq('id', id)
       .single()
@@ -40,7 +47,7 @@ const ItemPage = () => {
         component="img"
         alt=""
         height="400"
-        image={currentData.poster}
+        image={currentData.poster ? currentData.poster : defaultImgUrl}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent>
@@ -66,7 +73,7 @@ const ItemPage = () => {
           {session && session.user.id === currentData.owner && (
             <>
               <Button size="small">Edit</Button>
-              <Button size="small" color="error">
+              <Button size="small" color="error" onClick={handleDeleteItem}>
                 Delete
               </Button>
             </>
