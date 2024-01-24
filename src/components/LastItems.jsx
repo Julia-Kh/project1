@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import Typography from '@mui/material/Typography';
 import ItemsList from './ItemsList';
 import AuthContext from '../context/AuthContext';
 
@@ -26,7 +27,7 @@ const LastItems = () => {
   }, []);
   return (
     <>
-      <div>Last Items</div>
+      <Typography variant="h3">Last Items</Typography>
       <ItemsList items={items}></ItemsList>
     </>
   );

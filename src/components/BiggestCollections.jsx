@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import Typography from '@mui/material/Typography';
 import CollectionsList from './CollectionsList';
 import AuthContext from '../context/AuthContext';
 
@@ -25,7 +26,7 @@ const BiggestCollections = () => {
   }, []);
   return (
     <>
-      <div>Biggest Collections</div>
+      <Typography variant="h3">Biggest Collections</Typography>
       <CollectionsList collections={collections}></CollectionsList>
     </>
   );
