@@ -9,11 +9,13 @@ import {
   InputLabel,
   Box,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
   const [topics, setTopics] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchTopics = async () => {
       let { data: Topics, error } = await supabase.from('Topics').select('*');
@@ -44,25 +46,28 @@ const MyForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Действия с отправленными данными
-    const sendData = async () => {
-      const { data, error } = await supabase
-        .from('Collections')
-        .insert([
-          {
-            title: formData.title,
-            description: formData.description,
-            img_url: formData.imgUrl,
-            topic_id: formData.selectedValue,
-            author_id: session.user.id,
-          },
-        ])
-        .select();
-      console.log({ data, error });
-    };
-    sendData();
+    const { data, error } = await supabase
+      .from('Collections')
+      .insert([
+        {
+          title: formData.title,
+          description: formData.description,
+          img_url: formData.imgUrl,
+          topic_id: formData.selectedValue,
+          author_id: session.user.id,
+        },
+      ])
+      .select();
+    // todo: handle errors
+    if (error) {
+      console.log('error is', error);
+    } else {
+      console.log('data is', data);
+      navigate(`/collections/${data[0].id}`);
+    }
   };
 
   return (
