@@ -13,6 +13,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Switch from '@mui/material/Switch';
 import { useNavigate } from 'react-router-dom';
+import './Header.css';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -120,6 +121,14 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
       >
         Create item
       </MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          navigate('/login');
+        }}
+      >
+        Login / Sign out
+      </MenuItem>
     </Menu>
   );
 
@@ -165,6 +174,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
             onClick={() => navigate('/')}
+            className="title"
           >
             My Collection
           </Typography>

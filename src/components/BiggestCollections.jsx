@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import CollectionsList from './CollectionsList';
 import AuthContext from '../context/AuthContext';
+import './BiggestCollections.css';
 
 const BiggestCollections = () => {
   const { supabase } = useContext(AuthContext);
@@ -26,7 +27,9 @@ const BiggestCollections = () => {
   }, []);
   return (
     <>
-      <Typography variant="h3">Biggest Collections</Typography>
+      <Typography className="textBiggestCollections" variant="h3">
+        Biggest Collections
+      </Typography>
       <CollectionsList collections={collections}></CollectionsList>
     </>
   );

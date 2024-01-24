@@ -69,7 +69,7 @@ const fontSizeSetter = (datum) => fontScale(datum.value);
 
 const fixedValueGenerator = () => 0.5;
 
-export default function Example({ width, height, showControls }) {
+export default function WordCloud({ width, height, showControls }) {
   const [spiralType, setSpiralType] = useState('archimedean');
   const [withRotation, setWithRotation] = useState(false);
 

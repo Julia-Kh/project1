@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import ItemsList from './ItemsList';
 import AuthContext from '../context/AuthContext';
+import './LastItems.css'
 
 const LastItems = () => {
   const { supabase } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const LastItems = () => {
       .select(
         'id, name:title, Collections (title), created_at, owner:author_id, poster:img_url'
       )
-      .order('created_at', { ascending: false }) // сортировка
+      .order('created_at', { ascending: false })
       .limit(8)
       .then((res) => {
         let { data, error } = res;
@@ -27,7 +28,7 @@ const LastItems = () => {
   }, []);
   return (
     <>
-      <Typography variant="h3">Last Items</Typography>
+      <Typography className='textLastItems' variant="h3">Last Items</Typography>
       <ItemsList items={items}></ItemsList>
     </>
   );
