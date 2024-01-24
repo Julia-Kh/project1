@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 import CollectionsPage from './pages/CollectionsPage.jsx';
 import CollectionPage from './pages/CollectionPage.jsx';
 import ItemPage from './pages/ItemPage.jsx';
@@ -55,6 +56,7 @@ function App() {
               >
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
+                <Route path="error" element={<ErrorPage />} />
                 <Route path="collections" element={<CollectionsPage />} />
                 <Route path="collections/:id" element={<CollectionPage />} />
                 <Route path="items/:id" element={<ItemPage />} />

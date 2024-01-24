@@ -7,6 +7,7 @@ const CollectionPage = () => {
   const { supabase } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const { id } = useParams();
+
   useEffect(() => {
     // get items
     supabase
@@ -27,6 +28,7 @@ const CollectionPage = () => {
         setItems(data2);
       });
   }, []);
+  
   return (
     <>
       <div>Last Items</div>
