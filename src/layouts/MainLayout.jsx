@@ -6,15 +6,16 @@ const MainLayout = ({ setCurrentTheme }) => (
     <Header setCurrentTheme={setCurrentTheme} />
     <Box
       sx={{
-        // display: 'flex',
-        width: '100%',
-        height: '100%',
-        // alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        // width: '100%',
+        // height: '100%',
+        alignItems: 'center',
         // justifyContent: 'center',
         bgcolor: 'background.default',
         color: 'text.primary',
-        // borderRadius: 1,
-        // p: 3,
+        borderRadius: 1,
+        p: 3,
       }}
     >
       <Outlet />

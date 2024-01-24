@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { supabase } from './supabaseClient';
+import { CssBaseline } from '@mui/material';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import Home from './pages/Home.jsx';
@@ -15,7 +16,7 @@ import FormCreateCollection from './pages/FormCreateCollection.jsx';
 import FormCreateItem from './pages/FormCreateItem.jsx';
 import AuthContext from './context/AuthContext.jsx';
 
-import './App.css';
+// import './App.css';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <AuthContext.Provider value={{ supabase, session }}>
         {/* // взять часть адресной строки из переменной окружения */}
         <BrowserRouter basename={import.meta.env.BASE_URL}>
@@ -56,7 +58,7 @@ function App() {
                 element={<MainLayout setCurrentTheme={setCurrentTheme} />}
               >
                 <Route index element={<Home />} />
-                <Route path="login" element={<Login />} />
+                <Route path="login" element={<Login currentTheme={currentTheme} />} />
                 <Route path="error" element={<ErrorPage />} />
                 <Route path="collections" element={<CollectionsPage />} />
                 <Route path="items" element={<ItemsPage />} />

@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <LastItems />
       <BiggestCollections />
-      <WordCloud width={400} height={400}></WordCloud>
+      {/* <WordCloud width={400} height={400}></WordCloud> */}
     </>
   );
 };

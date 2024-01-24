@@ -3,7 +3,7 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import AuthContext from '../context/AuthContext';
 
-const Login = () => {
+const Login = ({ currentTheme }) => {
   const { supabase, session } = useContext(AuthContext);
   return (
     <div className="container" style={{ padding: '50px 0 100px 0' }}>
@@ -12,6 +12,7 @@ const Login = () => {
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           providers={[]}
+          theme={currentTheme}
         />
       ) : (
         <>
