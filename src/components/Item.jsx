@@ -7,9 +7,11 @@ import {
   CardActions,
   Button,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Item = (props) => {
-  const { name, poster, owner, collection } = props;
+  const { name, poster, owner, collection, id } = props;
+  const navigate = useNavigate();
 
   return (
     <Grid item xs={12} md={3}>
@@ -22,14 +24,14 @@ const Item = (props) => {
           height="140"
         />
         <CardContent>
-          <Typography variant="h6">
-            {name}
-          </Typography>
+          <Typography variant="h6">{name}</Typography>
           <Typography variant="body1">Collection: {collection}</Typography>
           <Typography variant="body1">Author: {owner}</Typography>
         </CardContent>
         <CardActions>
-          <Button variant="text">Open</Button>
+          <Button onClick={() => navigate(`/items/${id}`)} variant="text">
+            Open
+          </Button>
         </CardActions>
       </Card>
     </Grid>
