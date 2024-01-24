@@ -7,7 +7,6 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Box,
 } from '@mui/material';
 import AuthContext from '../context/AuthContext';
 
@@ -63,7 +62,8 @@ const MyForm = () => {
           },
         ])
         .select();
-      console.log({ data, error });
+      // todo: handle errors
+      // console.log({ data, error });
     };
     sendData();
   };
@@ -78,6 +78,7 @@ const MyForm = () => {
             value={formData.title}
             onChange={handleInputChange}
             fullWidth
+            required
           />
         </Grid>
         <Grid item xs={6}></Grid>
@@ -96,6 +97,7 @@ const MyForm = () => {
             <Select
               value={formData.selectedValue}
               onChange={handleSelectChange}
+              required
             >
               {collections.map((collection) => (
                 <MenuItem value={collection.id} key={collection.id}>

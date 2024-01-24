@@ -75,6 +75,7 @@ const MyForm = () => {
             value={formData.title}
             onChange={handleInputChange}
             fullWidth
+            required
           />
         </Grid>
         <Grid item xs={6}></Grid>
@@ -102,6 +103,7 @@ const MyForm = () => {
             <Select
               value={formData.selectedValue}
               onChange={handleSelectChange}
+              required
             >
               {topics.map((topic) => (
                 <MenuItem value={topic.id} key={topic.id}>
