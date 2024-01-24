@@ -63,10 +63,14 @@ const ItemPage = () => {
           )}
         </CardContent>
         <CardActions>
-          <Button size="small">Edit</Button>
-          <Button size="small" color="error">
-            Delete
-          </Button>
+          {session && session.user.id === currentData.owner && (
+            <>
+              <Button size="small">Edit</Button>
+              <Button size="small" color="error">
+                Delete
+              </Button>
+            </>
+          )}
         </CardActions>
       </Box>
     </Card>
