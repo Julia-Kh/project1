@@ -1,14 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
+import Button from '@mui/material/Button';
 import ItemsList from '../components/ItemsList';
 import AuthContext from '../context/AuthContext';
 import TypographyHeader from '../components/TypographyHeader';
 
 const CollectionPage = () => {
-  const { supabase } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { supabase, session } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const { id } = useParams();
   const [collectionInfo, setCollectionInfo] = useState({});
+
+  const handleDeleteCollection = async () => {
+    const { error } = await supabase.from('Collections').delete().eq('id', id);
+    navigate(`/my-collections`)
+  };
 
   useEffect(() => {
     // get items
@@ -34,20 +41,26 @@ const CollectionPage = () => {
   useEffect(() => {
     supabase
       .from('Collections')
-      .select(
-        'id, title'
-      )
+      .select('id, title, owner:author_id')
       .eq('id', id)
       .single()
       .then((res) => {
         let { data, error } = res;
-        setCollectionInfo( data );
+        setCollectionInfo(data);
       });
   }, []);
 
   return (
     <>
       <TypographyHeader>{collectionInfo.title}</TypographyHeader>
+      {session && session.user.id === collectionInfo.owner && (
+        <>
+          <Button size="small">Edit</Button>
+          <Button size="small" color="error" onClick={handleDeleteCollection} >
+            Delete
+          </Button>
+        </>
+      )}
       <ItemsList items={items}></ItemsList>
     </>
   );
