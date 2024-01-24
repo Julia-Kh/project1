@@ -185,7 +185,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
           >
             My Collection
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -193,7 +193,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Typography>Dark theme</Typography>
