@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import ItemsList from './ItemsList';
 import AuthContext from '../context/AuthContext';
-import './LastItems.css'
+import '../styles.css'
 
 const LastItems = () => {
   const { supabase } = useContext(AuthContext);
@@ -28,7 +28,7 @@ const LastItems = () => {
   }, []);
   return (
     <>
-      <Typography className='textLastItems' variant="h3">Last Items</Typography>
+      <Typography className='my_header' variant="h3">Last Items</Typography>
       <ItemsList items={items}></ItemsList>
     </>
   );

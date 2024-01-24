@@ -7,10 +7,11 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Box,
+  Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import '../styles.css'
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
@@ -71,60 +72,62 @@ const MyForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TextField
-            label="Title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            fullWidth
-            required
-          />
-        </Grid>
-        <Grid item xs={6}></Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            fullWidth
-            multiline
-            maxRows={4}
-          />
-          <TextField
-            label="Image url"
-            name="imgUrl"
-            value={formData.imgUrl}
-            onChange={handleInputChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel>Выберите значение</InputLabel>
-            <Select
-              value={formData.selectedValue}
-              onChange={handleSelectChange}
+    <>
+      <Typography className='my_header' variant="h3">Create collection</Typography>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Title"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              fullWidth
               required
-            >
-              {topics.map((topic) => (
-                <MenuItem value={topic.id} key={topic.id}>
-                  {topic.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              fullWidth
+              multiline
+              maxRows={4}
+            />
+            <TextField
+              label="Image url"
+              name="imgUrl"
+              value={formData.imgUrl}
+              onChange={handleInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel>Выберите значение</InputLabel>
+              <Select
+                value={formData.selectedValue}
+                onChange={handleSelectChange}
+                required
+              >
+                {topics.map((topic) => (
+                  <MenuItem value={topic.id} key={topic.id}>
+                    {topic.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary">
+              Отправить
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Отправить
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </>
   );
 };
 
