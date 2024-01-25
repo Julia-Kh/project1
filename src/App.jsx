@@ -76,39 +76,39 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="create-collection"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <CreateCollectionPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="create-item"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <CreateItemPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="edit-collection/:id"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <EditCollectionPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="edit-item/:id"
+                  element={
+                    <ProtectedRoute session={session}>
+                      <EditItemPage />
+                    </ProtectedRoute>
+                  }
+                />
               </Route>
-              <Route
-                path="create-collection"
-                element={
-                  <ProtectedRoute session={session}>
-                    <CreateCollectionPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="create-item"
-                element={
-                  <ProtectedRoute session={session}>
-                    <CreateItemPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="edit-collection/:id"
-                element={
-                  <ProtectedRoute session={session}>
-                    <EditCollectionPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="edit-item/:id"
-                element={
-                  <ProtectedRoute session={session}>
-                    <EditItemPage />
-                  </ProtectedRoute>
-                }
-              />
             </Routes>
           </div>
         </BrowserRouter>

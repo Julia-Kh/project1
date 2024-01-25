@@ -18,7 +18,7 @@ const CollectionPage = () => {
   };
 
   const handleEditCollection = () => {
-    console.log('edit collection')
+    navigate(`/edit-collection/${id}`)
   }
 
   useEffect(() => {
