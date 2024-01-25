@@ -10,10 +10,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Switch from '@mui/material/Switch';
 import { useNavigate } from 'react-router-dom';
-import SvgIcon from '@mui/material/SvgIcon';
-import './Header.css';
 import YourSvg from '../assets/MyCollection.svg?react';
-// import { ReactComponent as YourSvg } from '../assets/MyCollection.svg';
 
 export default function PrimarySearchAppBar({ setCurrentTheme }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -135,7 +132,7 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton>
+          <IconButton sx={{ display: { md: "flex", xs: "none" } }}>
             <YourSvg viewBox="0 0 350 60" />
           </IconButton>
           <MenuItem onClick={() => navigate('/collections')}>
