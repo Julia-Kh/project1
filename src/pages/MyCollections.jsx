@@ -18,7 +18,6 @@ const MyCollections = () => {
       .then((res) => {
         let { data, error } = res;
         setCollections(data);
-        console.log(data);
       });
   }, []);
 

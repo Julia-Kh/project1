@@ -16,15 +16,10 @@ const MyForm = ({
   initialData = { title: '', description: '', imgUrl: '', selectedValue: '' },
 }) => {
   const { supabase } = useContext(AuthContext);
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState(null);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    title: initialData.title,
-    description: initialData.description,
-    imgUrl: initialData.imgUrl,
-    selectedValue: initialData.selectedValue,
-  });
+  const [formData, setFormData] = useState(initialData);
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -33,8 +28,6 @@ const MyForm = ({
     };
     fetchTopics();
   }, []);
-
-  console.log(initialData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,57 +52,60 @@ const MyForm = ({
     if (error) {
       console.log('error is', error);
     } else {
-      console.log('data is', data);
       navigate(`/collections/${data[0].id}`);
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Title"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Image url"
-              name="imgUrl"
-              value={formData.imgUrl}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>Выберите значение</InputLabel>
-              <Select
-                value={formData.selectedValue}
-                onChange={handleSelectChange}
+      {topics ? (
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Title"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                fullWidth
                 required
-              >
-                {topics.map((topic) => (
-                  <MenuItem value={topic.id} key={topic.id}>
-                    {topic.title}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Image url"
+                name="imgUrl"
+                value={formData.imgUrl}
+                onChange={handleInputChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Выберите значение</InputLabel>
+                <Select
+                  value={formData.selectedValue}
+                  onChange={handleSelectChange}
+                  required
+                >
+                  {topics.map((topic) => (
+                    <MenuItem value={topic.id} key={topic.id}>
+                      {topic.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary">
+                Отправить
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Отправить
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
+      ) : (
+        <div>loading...</div>
+      )}
     </>
   );
 };
