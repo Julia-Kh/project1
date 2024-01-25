@@ -135,20 +135,8 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-            onClick={() => navigate('/')}
-            className="title"
-          >
-            My Collection
-          </Typography> */}
-          <IconButton sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {/* <SvgIcon viewBox="0 0 345 89"> */}
-            <YourSvg viewBox="0 0 300 89" />
-            {/* </SvgIcon> */}
+          <IconButton>
+            <YourSvg viewBox="0 0 350 60" />
           </IconButton>
           <MenuItem onClick={() => navigate('/collections')}>
             <Typography textAlign="center">Collections</Typography>
@@ -157,7 +145,13 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
             <Typography textAlign="center">Items</Typography>
           </MenuItem>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <Typography>Dark theme</Typography>
             <Switch
               checked={checked}
