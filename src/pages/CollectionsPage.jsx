@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Collection from '../components/Collection';
 import AuthContext from '../context/AuthContext';
+import TypographyHeader from '../components/TypographyHeader';
 
 const CollectionsPage = () => {
   const { supabase } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const CollectionsPage = () => {
   }, []);
   return (
     <>
-      <div>Collections</div>
+      <TypographyHeader>Collections</TypographyHeader>
       <Grid container spacing={2}>
         {collections.map((collection) => (
           <Collection key={collection.id} {...collection} />

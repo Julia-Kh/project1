@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Item from '../components/Item';
 import AuthContext from '../context/AuthContext';
+import TypographyHeader from '../components/TypographyHeader';
 
 const ItemsPage = () => {
   const { supabase } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const ItemsPage = () => {
   }, []);
   return (
     <>
-      <div>Items</div>
+      <TypographyHeader>Items</TypographyHeader>
       <Grid container spacing={2}>
         {items.map((item) => (
           <Item key={item.id} {...item} />
