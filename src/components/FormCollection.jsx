@@ -82,11 +82,12 @@ const MyForm = ({
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel>Выберите значение</InputLabel>
+                <InputLabel>Select value</InputLabel>
                 <Select
                   value={formData.selectedValue}
                   onChange={handleSelectChange}
                   required
+                  label='Select value'
                 >
                   {topics.map((topic) => (
                     <MenuItem value={topic.id} key={topic.id}>
@@ -98,7 +99,7 @@ const MyForm = ({
             </Grid>
             <Grid item xs={12}>
               <Button type="submit" variant="contained" color="primary">
-                Отправить
+                Submit
               </Button>
             </Grid>
           </Grid>
