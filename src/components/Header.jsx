@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,23 +10,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Switch from '@mui/material/Switch';
 import { useNavigate } from 'react-router-dom';
+import SvgIcon from '@mui/material/SvgIcon';
 import './Header.css';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
+import YourSvg from '../assets/MyCollection.svg?react';
+// import { ReactComponent as YourSvg } from '../assets/MyCollection.svg';
 
 export default function PrimarySearchAppBar({ setCurrentTheme }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -147,9 +133,9 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
@@ -158,7 +144,12 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
             className="title"
           >
             My Collection
-          </Typography>
+          </Typography> */}
+          <IconButton sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {/* <SvgIcon viewBox="0 0 345 89"> */}
+            <YourSvg viewBox="0 0 300 89" />
+            {/* </SvgIcon> */}
+          </IconButton>
           <MenuItem onClick={() => navigate('/collections')}>
             <Typography textAlign="center">Collections</Typography>
           </MenuItem>
