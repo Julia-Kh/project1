@@ -6,6 +6,7 @@ import AuthContext from '../context/AuthContext';
 import TypographyHeader from '../components/TypographyHeader';
 import { Typography } from '@mui/material';
 
+
 const CollectionPage = () => {
   const navigate = useNavigate();
   const { supabase, session } = useContext(AuthContext);

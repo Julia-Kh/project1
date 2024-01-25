@@ -1,5 +1,7 @@
+import TypographyHeader from '../components/TypographyHeader';
+
 const ErrorPage = () => {
-  return <div>Error</div>;
+  return <TypographyHeader>Error</TypographyHeader>;
 };
 
 export default ErrorPage;
