@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import ItemsList from '../components/ItemsList';
 import AuthContext from '../context/AuthContext';
 import TypographyHeader from '../components/TypographyHeader';
+import { Typography } from '@mui/material';
 
 const CollectionPage = () => {
   const navigate = useNavigate();
@@ -14,12 +15,12 @@ const CollectionPage = () => {
 
   const handleDeleteCollection = async () => {
     const { error } = await supabase.from('Collections').delete().eq('id', id);
-    navigate(`/my-collections`)
+    navigate(`/my-collections`);
   };
 
   const handleEditCollection = () => {
-    navigate(`/edit-collection/${id}`)
-  }
+    navigate(`/edit-collection/${id}`);
+  };
 
   useEffect(() => {
     // get items
@@ -45,7 +46,7 @@ const CollectionPage = () => {
   useEffect(() => {
     supabase
       .from('Collections')
-      .select('id, title, owner:author_id')
+      .select('id, title, owner:author_id, Topics (title)')
       .eq('id', id)
       .single()
       .then((res) => {
@@ -56,11 +57,18 @@ const CollectionPage = () => {
 
   return (
     <>
-      <TypographyHeader>{collectionInfo.title}</TypographyHeader>
+      {collectionInfo.title && (
+        <>
+          <TypographyHeader>{collectionInfo.title}</TypographyHeader>
+          <Typography>Topic: {collectionInfo.Topics.title}</Typography>
+        </>
+      )}
       {session && session.user.id === collectionInfo.owner && (
         <>
-          <Button size="small" onClick={handleEditCollection}>Edit</Button>
-          <Button size="small" color="error" onClick={handleDeleteCollection} >
+          <Button size="small" onClick={handleEditCollection}>
+            Edit
+          </Button>
+          <Button size="small" color="error" onClick={handleDeleteCollection}>
             Delete
           </Button>
         </>
