@@ -23,6 +23,10 @@ const ItemPage = () => {
     navigate(`/collections/${currentData.Collections.id}`)
   };
 
+  const handleEditItem = () => {
+    navigate(`/edit-item/${id}`)
+  }
+
   useEffect(() => {
     supabase
       .from('Items')
@@ -72,7 +76,7 @@ const ItemPage = () => {
         <CardActions>
           {session && session.user.id === currentData.owner && (
             <>
-              <Button size="small">Edit</Button>
+              <Button size="small" onClick={handleEditItem}>Edit</Button>
               <Button size="small" color="error" onClick={handleDeleteItem}>
                 Delete
               </Button>

@@ -10,29 +10,24 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import TypographyHeader from '../components/TypographyHeader';
 
-const MyForm = () => {
-  const { supabase, session } = useContext(AuthContext);
-  const [collections, setCollections] = useState([]);
+const MyForm = ({
+  action,
+  initialData = { title: '', description: '', imgUrl: '', selectedValue: '' },
+}) => {
+  const { supabase } = useContext(AuthContext);
+  const [collections, setCollections] = useState(null);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState(initialData);
+
   useEffect(() => {
     const fetchCollections = async () => {
-      let { data: Collections, error } = await supabase
-        .from('Collections')
-        .select('*')
-        .eq('author_id', session.user.id);
+      let { data: Collections, error } = await supabase.from('Collections').select('*');
       setCollections(Collections);
     };
     fetchCollections();
   }, []);
-
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    imgUrl: '',
-    selectedValue: '',
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,92 +46,75 @@ const MyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Действия с отправленными данными
-    const { data, error } = await supabase
-      .from('Items')
-      .insert([
-        {
-          title: formData.title,
-          img_url: formData.imgUrl,
-          collection_id: formData.selectedValue,
-          author_id: session.user.id,
-          description: formData.description,
-          // tag_id можно добавить
-        },
-      ])
-      .select(); // this is in documentation, I don't know why
+    const { data, error } = await action(formData);
     // todo: handle errors
     if (error) {
       console.log('error is', error);
     } else {
-      console.log('data is', data);
       navigate(`/items/${data[0].id}`);
     }
   };
 
   return (
     <>
-      <TypographyHeader>Create item</TypographyHeader>
-      <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          justifyContent="flex-start"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item xs={12}>
-            <TextField
-              label="Title"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Image url"
-              name="imgUrl"
-              value={formData.imgUrl}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              fullWidth
-              multiline
-              maxRows={4}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>Выберите значение</InputLabel>
-              <Select
-                value={formData.selectedValue}
-                onChange={handleSelectChange}
+      {collections ? (
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Title"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                fullWidth
                 required
-              >
-                {collections.map((collection) => (
-                  <MenuItem value={collection.id} key={collection.id}>
-                    {collection.title}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Image url"
+                name="imgUrl"
+                value={formData.imgUrl}
+                onChange={handleInputChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Select value</InputLabel>
+                <Select
+                  value={formData.selectedValue}
+                  onChange={handleSelectChange}
+                  required
+                  label='Select value'
+                >
+                  {collections.map((collection) => (
+                    <MenuItem value={collection.id} key={collection.id}>
+                      {collection.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary">
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Отправить
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
+      ) : (
+        <div>loading...</div>
+      )}
     </>
   );
 };

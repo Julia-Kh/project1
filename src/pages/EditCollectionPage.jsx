@@ -5,7 +5,7 @@ import TypographyHeader from '../components/TypographyHeader';
 import FormCollection from '../components/FormCollection';
 
 const EditCollectionPage = () => {
-  const { supabase, session } = useContext(AuthContext);
+  const { supabase } = useContext(AuthContext);
   const { id } = useParams();
   const [collectionInfo, setCollectionInfo] = useState(null);
 
