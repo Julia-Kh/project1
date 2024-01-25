@@ -16,6 +16,7 @@ const MainLayout = ({ setCurrentTheme }) => (
         color: 'text.primary',
         borderRadius: 1,
         p: 3,
+        marginTop: '90px'
       }}
     >
       <Outlet />

@@ -132,7 +132,12 @@ export default function PrimarySearchAppBar({ setCurrentTheme }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton sx={{ display: { md: "flex", xs: "none" } }}>
+          <IconButton
+            onClick={() => {
+              navigate('/');
+            }}
+            sx={{ display: { md: 'flex', xs: 'none' } }}
+          >
             <YourSvg viewBox="0 0 350 60" />
           </IconButton>
           <MenuItem onClick={() => navigate('/collections')}>
