@@ -11,10 +11,21 @@ import {
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
-const MyForm = ({action}) => {
+const MyForm = ({
+  action,
+  initialData = { title: '', description: '', imgUrl: '', selectedValue: '' },
+}) => {
   const { supabase } = useContext(AuthContext);
   const [topics, setTopics] = useState([]);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    title: initialData.title,
+    description: initialData.description,
+    imgUrl: initialData.imgUrl,
+    selectedValue: initialData.selectedValue,
+  });
+
   useEffect(() => {
     const fetchTopics = async () => {
       let { data: Topics, error } = await supabase.from('Topics').select('*');
@@ -23,12 +34,7 @@ const MyForm = ({action}) => {
     fetchTopics();
   }, []);
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    imgUrl: '',
-    selectedValue: '',
-  });
+  console.log(initialData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
