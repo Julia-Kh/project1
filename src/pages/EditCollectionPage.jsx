@@ -12,12 +12,15 @@ const EditCollectionPage = () => {
   useEffect(() => {
     supabase
       .from('Collections')
-      .select('title, description, imgUrl:img_url, selectedValue:topic_id')
+      .select('title, imgUrl:img_url, selectedValue:topic_id')
       .eq('id', id)
       .single()
       .then((res) => {
         let { data, error } = res;
         setCollectionInfo(data);
+        if (error) {
+          console.log('Error:', error);
+        }
       });
   }, []);
 
@@ -37,7 +40,9 @@ const EditCollectionPage = () => {
   return (
     <>
       <TypographyHeader>Edit collection</TypographyHeader>
-      {collectionInfo && <FormCollection action={action} initialData={collectionInfo} />}
+      {collectionInfo && (
+        <FormCollection action={action} initialData={collectionInfo} />
+      )}
     </>
   );
 };
