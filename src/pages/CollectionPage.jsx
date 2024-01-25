@@ -17,6 +17,10 @@ const CollectionPage = () => {
     navigate(`/my-collections`)
   };
 
+  const handleEditCollection = () => {
+    console.log('edit collection')
+  }
+
   useEffect(() => {
     // get items
     supabase
@@ -55,7 +59,7 @@ const CollectionPage = () => {
       <TypographyHeader>{collectionInfo.title}</TypographyHeader>
       {session && session.user.id === collectionInfo.owner && (
         <>
-          <Button size="small">Edit</Button>
+          <Button size="small" onClick={handleEditCollection}>Edit</Button>
           <Button size="small" color="error" onClick={handleDeleteCollection} >
             Delete
           </Button>

@@ -12,12 +12,12 @@ import CollectionsPage from './pages/CollectionsPage.jsx';
 import ItemsPage from './pages/ItemsPage.jsx';
 import CollectionPage from './pages/CollectionPage.jsx';
 import ItemPage from './pages/ItemPage.jsx';
-import FormCreateCollection from './pages/FormCreateCollection.jsx';
-import FormCreateItem from './pages/FormCreateItem.jsx';
 import AuthContext from './context/AuthContext.jsx';
 import MyCollections from './pages/MyCollections.jsx';
-
-// import './App.css';
+import CreateCollectionPage from './pages/CreateCollectionPage.jsx';
+import CreateItemPage from './pages/CreateItemPage.jsx';
+import EditCollectionPage from './pages/EditCollectionPage.jsx';
+import EditItemPage from './pages/EditItemPage.jsx';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -69,22 +69,6 @@ function App() {
                 <Route path="collections/:id" element={<CollectionPage />} />
                 <Route path="items/:id" element={<ItemPage />} />
                 <Route
-                  path="create-collection"
-                  element={
-                    <ProtectedRoute session={session}>
-                      <FormCreateCollection />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="create-item"
-                  element={
-                    <ProtectedRoute session={session}>
-                      <FormCreateItem />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
                   path="my-collections"
                   element={
                     <ProtectedRoute session={session}>
@@ -93,6 +77,38 @@ function App() {
                   }
                 />
               </Route>
+              <Route
+                path="create-collection"
+                element={
+                  <ProtectedRoute session={session}>
+                    <CreateCollectionPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="create-item"
+                element={
+                  <ProtectedRoute session={session}>
+                    <CreateItemPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="edit-collection/:id"
+                element={
+                  <ProtectedRoute session={session}>
+                    <EditCollectionPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="edit-item/:id"
+                element={
+                  <ProtectedRoute session={session}>
+                    <EditItemPage />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
         </BrowserRouter>

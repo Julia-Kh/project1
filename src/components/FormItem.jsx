@@ -14,14 +14,17 @@ import TypographyHeader from '../components/TypographyHeader';
 
 const MyForm = () => {
   const { supabase, session } = useContext(AuthContext);
-  const [topics, setTopics] = useState([]);
+  const [collections, setCollections] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    const fetchTopics = async () => {
-      let { data: Topics, error } = await supabase.from('Topics').select('*');
-      setTopics(Topics);
+    const fetchCollections = async () => {
+      let { data: Collections, error } = await supabase
+        .from('Collections')
+        .select('*')
+        .eq('author_id', session.user.id);
+      setCollections(Collections);
     };
-    fetchTopics();
+    fetchCollections();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -50,30 +53,37 @@ const MyForm = () => {
     e.preventDefault();
     // Действия с отправленными данными
     const { data, error } = await supabase
-      .from('Collections')
+      .from('Items')
       .insert([
         {
           title: formData.title,
           img_url: formData.imgUrl,
-          topic_id: formData.selectedValue,
+          collection_id: formData.selectedValue,
           author_id: session.user.id,
+          description: formData.description,
+          // tag_id можно добавить
         },
       ])
-      .select();
+      .select(); // this is in documentation, I don't know why
     // todo: handle errors
     if (error) {
       console.log('error is', error);
     } else {
       console.log('data is', data);
-      navigate(`/collections/${data[0].id}`);
+      navigate(`/items/${data[0].id}`);
     }
   };
 
   return (
     <>
-      <TypographyHeader>Create collection</TypographyHeader>
+      <TypographyHeader>Create item</TypographyHeader>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
+        <Grid
+          container
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
           <Grid item xs={12}>
             <TextField
               label="Title"
@@ -94,6 +104,17 @@ const MyForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <TextField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              fullWidth
+              multiline
+              maxRows={4}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Выберите значение</InputLabel>
               <Select
@@ -101,9 +122,9 @@ const MyForm = () => {
                 onChange={handleSelectChange}
                 required
               >
-                {topics.map((topic) => (
-                  <MenuItem value={topic.id} key={topic.id}>
-                    {topic.title}
+                {collections.map((collection) => (
+                  <MenuItem value={collection.id} key={collection.id}>
+                    {collection.title}
                   </MenuItem>
                 ))}
               </Select>

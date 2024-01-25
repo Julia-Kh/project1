@@ -10,21 +10,17 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import TypographyHeader from '../components/TypographyHeader';
 
-const MyForm = () => {
-  const { supabase, session } = useContext(AuthContext);
-  const [collections, setCollections] = useState([]);
+const MyForm = ({action}) => {
+  const { supabase } = useContext(AuthContext);
+  const [topics, setTopics] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    const fetchCollections = async () => {
-      let { data: Collections, error } = await supabase
-        .from('Collections')
-        .select('*')
-        .eq('author_id', session.user.id);
-      setCollections(Collections);
+    const fetchTopics = async () => {
+      let { data: Topics, error } = await supabase.from('Topics').select('*');
+      setTopics(Topics);
     };
-    fetchCollections();
+    fetchTopics();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -52,38 +48,20 @@ const MyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Действия с отправленными данными
-    const { data, error } = await supabase
-      .from('Items')
-      .insert([
-        {
-          title: formData.title,
-          img_url: formData.imgUrl,
-          collection_id: formData.selectedValue,
-          author_id: session.user.id,
-          description: formData.description,
-          // tag_id можно добавить
-        },
-      ])
-      .select();
+    const { data, error } = await action(formData);
     // todo: handle errors
     if (error) {
       console.log('error is', error);
     } else {
       console.log('data is', data);
-      navigate(`/items/${data[0].id}`);
+      navigate(`/collections/${data[0].id}`);
     }
   };
 
   return (
     <>
-      <TypographyHeader>Create item</TypographyHeader>
       <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          justifyContent="flex-start"
-          alignItems="center"
-          spacing={2}
-        >
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               label="Title"
@@ -104,17 +82,6 @@ const MyForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              fullWidth
-              multiline
-              maxRows={4}
-            />
-          </Grid>
-          <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Выберите значение</InputLabel>
               <Select
@@ -122,9 +89,9 @@ const MyForm = () => {
                 onChange={handleSelectChange}
                 required
               >
-                {collections.map((collection) => (
-                  <MenuItem value={collection.id} key={collection.id}>
-                    {collection.title}
+                {topics.map((topic) => (
+                  <MenuItem value={topic.id} key={topic.id}>
+                    {topic.title}
                   </MenuItem>
                 ))}
               </Select>
