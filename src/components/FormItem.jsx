@@ -63,7 +63,7 @@ const MyForm = ({
     return (
       <>
         <Typography>First you need to create a collection</Typography>
-        <Button onClick={'/create-collection'}>Create collection</Button>
+        <Button onClick={() => navigate('/create-collection')}>Create collection</Button>
       </>
     );
   }
