@@ -103,12 +103,12 @@ const MyForm = ({
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel>Select value</InputLabel>
+                <InputLabel>Select topic</InputLabel>
                 <Select
                   value={formData.selectedValue}
                   onChange={handleSelectChange}
                   required
-                  label="Select value"
+                  label="Select topic"
                 >
                   {collections.map((collection) => (
                     <MenuItem value={collection.id} key={collection.id}>
