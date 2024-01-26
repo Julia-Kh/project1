@@ -13,11 +13,14 @@ const Item = (props) => {
   const { name, poster, owner, collection, id } = props;
   const navigate = useNavigate();
   const defaultImgUrl =
-      'https://images.unsplash.com/photo-1553949345-eb786bb3f7ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+    'https://images.unsplash.com/photo-1553949345-eb786bb3f7ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
   return (
     <Grid item xs={12} md={3}>
-      <Card sx={{ height: '100%' }}>
+      <Card
+        sx={{ height: '100%', cursor: 'pointer' }}
+        onClick={() => navigate(`/items/${id}`)}
+      >
         <CardMedia
           component="img"
           image={poster ? poster : defaultImgUrl}
@@ -31,9 +34,6 @@ const Item = (props) => {
           <Typography variant="body1">Author: {owner}</Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={() => navigate(`/items/${id}`)} variant="text">
-            Open
-          </Button>
         </CardActions>
       </Card>
     </Grid>

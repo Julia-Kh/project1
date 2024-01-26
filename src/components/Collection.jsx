@@ -17,7 +17,7 @@ const Collection = (props) => {
 
   return (
     <Grid item xs={12} md={3}>
-      <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => navigate(`/collections/${id}`)}>
         <CardMedia
           component="img"
           image={poster ? poster : defaultImgUrl}
@@ -32,9 +32,6 @@ const Collection = (props) => {
           <Typography variant="body1">Author: {owner}</Typography>
         </CardContent>
         <CardActions>
-          <Button variant="text" onClick={() => navigate(`/collections/${id}`)}>
-            Open
-          </Button>
         </CardActions>
       </Card>
     </Grid>
