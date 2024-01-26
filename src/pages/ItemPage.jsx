@@ -20,12 +20,12 @@ const ItemPage = () => {
 
   const handleDeleteItem = async () => {
     const { error } = await supabase.from('Items').delete().eq('id', id);
-    navigate(`/collections/${currentData.Collections.id}`)
+    navigate(`/collections/${currentData.Collections.id}`);
   };
 
   const handleEditItem = () => {
-    navigate(`/edit-item/${id}`)
-  }
+    navigate(`/edit-item/${id}`);
+  };
 
   useEffect(() => {
     supabase
@@ -48,6 +48,7 @@ const ItemPage = () => {
   return currentData ? (
     <Card sx={{ maxWidth: 800, display: 'flex' }}>
       <CardMedia
+        sx={{ maxWidth: '60%' }}
         component="img"
         alt=""
         height="400"
@@ -76,7 +77,9 @@ const ItemPage = () => {
         <CardActions>
           {session && session.user.id === currentData.owner && (
             <>
-              <Button size="small" onClick={handleEditItem}>Edit</Button>
+              <Button size="small" onClick={handleEditItem}>
+                Edit
+              </Button>
               <Button size="small" color="error" onClick={handleDeleteItem}>
                 Delete
               </Button>
