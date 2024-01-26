@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -15,7 +16,7 @@ const MyForm = ({
   action,
   initialData = { title: '', description: '', imgUrl: '', selectedValue: '' },
 }) => {
-  const { supabase } = useContext(AuthContext);
+  const { supabase, session } = useContext(AuthContext);
   const [collections, setCollections] = useState(null);
   const navigate = useNavigate();
 
@@ -23,7 +24,10 @@ const MyForm = ({
 
   useEffect(() => {
     const fetchCollections = async () => {
-      let { data: Collections, error } = await supabase.from('Collections').select('*');
+      let { data: Collections, error } = await supabase
+        .from('Collections')
+        .select('*')
+        .eq('author_id', session.user.id);
       setCollections(Collections);
     };
     fetchCollections();
@@ -54,6 +58,15 @@ const MyForm = ({
       navigate(`/items/${data[0].id}`);
     }
   };
+
+  if (collections && collections.length === 0) {
+    return (
+      <>
+        <Typography>First you need to create a collection</Typography>
+        <Button onClick={'/create-collection'}>Create collection</Button>
+      </>
+    );
+  }
 
   return (
     <>
@@ -95,7 +108,7 @@ const MyForm = ({
                   value={formData.selectedValue}
                   onChange={handleSelectChange}
                   required
-                  label='Select value'
+                  label="Select value"
                 >
                   {collections.map((collection) => (
                     <MenuItem value={collection.id} key={collection.id}>
